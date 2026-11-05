@@ -1,0 +1,1648 @@
+meta:
+  generated: '2026-11-01T22:07:35'
+  generator: solver_inputs_from_wannier.py
+  draft: validated against the values quoted in the paper (block validation)
+  decisions: protocol choices of the paper (Sect. VI, Table III)
+  validation_passed: true
+units:
+  E0_meV: 269.0
+  aB_nm: 1.19
+  tau0_ps: 0.0024468846
+  tau0_fs: 2.44688
+  hbar_meV_ps: 0.658211957
+  note: E0 and tau0 = hbar/E0 are the natural units of App. D; the Lindblad solver works in meV and ps.
+material:
+  material: hBN-encapsulated monolayer WSe2
+  mu_m0: 0.2
+  kappa_env: 4.5
+  r0_nm: 4.5
+  Eg_meV: 1890.0
+  me_m0: 0.39
+  mh_m0: 0.51
+  E0_meV: 269.0
+  aB_nm: 1.19
+  r0_eff: 0.84
+  A_um2: 9.62113
+  M_m0: 0.9
+  alpha_e: 0.4333
+  alpha_h: 0.5667
+  A_note: baseline normalization area = 3.5 um fibre core of Stier et al. (PRL 120, 057405 (2018)); enters
+    only field reporting, the n_X check (iii) and gamma_2p->1s ~ A^-1.
+wannier:
+  Eb_meV:
+    1s: 161.585
+    2s: 37.42534
+    3s: 16.13431
+    4s: 8.916842
+    2p: 48.39136
+    3p: 19.09302
+    4p: 10.09812
+  phi0sq_aB-2:
+    1s: 0.28415
+    2s: 0.0298469
+    3s: 0.00845204
+    4s: 0.00347316
+  dipole_x_aB:
+    1s-2p: 0.853866
+    1s-3p: 0.266295
+    2s-2p: 2.73999
+    2s-3p: 2.78279
+    3s-2p: 0.00531743
+  orthonormality_error:
+    0: 2.3e-14
+    1: 1.6e-15
+bohr_energies_meV:
+  0-1s: 1728.415
+  0-2s: 1852.575
+  0-3s: 1873.866
+  1s-2p: 113.1937
+  2p-2s: 10.96602
+  1s-2s: 124.1597
+  1s-3p: 142.492
+manifolds:
+  Xi:
+    states:
+    - '0'
+    - 1s,K0
+    - 2p_d,K0
+    legs:
+      (1,2): interband optical
+      (2,3): intra-excitonic THz, e_d
+    dissipator_legs:
+    - 2->1 (1s->0)
+    - 3->2 (2p->1s)
+  V:
+    states:
+    - '0'
+    - 1s,K0
+    - 2s,K0
+    legs:
+      (1,2): interband optical
+      (1,3): interband optical
+    dissipator_legs:
+    - 2->1 (1s->0)
+    - 3->1 (2s->0)
+rates:
+  T_4K:
+    SI_s^-1:
+      gamma_1s_to_0: 4870140000000.0
+      gamma_0_to_1s: 0.0
+      gamma_2s_to_0: 548305000000.0
+      gamma_0_to_2s: 0.0
+      gamma_2p_to_1s: 1692300.0
+      gamma_1s_to_2p: 4.08046e-137
+    hbar_gamma_meV:
+      gamma_1s_to_0: 3.20559
+      gamma_0_to_1s: 0.0
+      gamma_2s_to_0: 0.360901
+      gamma_0_to_2s: 0.0
+      gamma_2p_to_1s: 1.1139e-06
+      gamma_1s_to_2p: 2.68581e-149
+    dimensionless_gamma_tau0:
+      gamma_1s_to_0: 0.0119167
+      gamma_0_to_1s: 0.0
+      gamma_2s_to_0: 0.00134164
+      gamma_0_to_2s: 0.0
+      gamma_2p_to_1s: 4.14087e-09
+      gamma_1s_to_2p: 9.98442e-152
+    n_gamma:
+      0-1s: 0.0
+      0-2s: 0.0
+      1s-2p: 2.41119e-143
+      2p-2s: 1.52554e-14
+    omitted_2p_2s_over_retained: 1.52e-14
+  T_77K:
+    SI_s^-1:
+      gamma_1s_to_0: 4870140000000.0
+      gamma_0_to_1s: 3.62999e-101
+      gamma_2s_to_0: 548305000000.0
+      gamma_0_to_2s: 3.0544e-110
+      gamma_2p_to_1s: 1692310.0
+      gamma_1s_to_2p: 0.0660334
+    hbar_gamma_meV:
+      gamma_1s_to_0: 3.20559
+      gamma_0_to_1s: 2.3893e-113
+      gamma_2s_to_0: 0.360901
+      gamma_0_to_2s: 2.01044e-122
+      gamma_2p_to_1s: 1.1139e-06
+      gamma_1s_to_2p: 4.34639e-14
+    dimensionless_gamma_tau0:
+      gamma_1s_to_0: 0.0119167
+      gamma_0_to_1s: 8.88217e-116
+      gamma_2s_to_0: 0.00134164
+      gamma_0_to_2s: 7.47377e-125
+      gamma_2p_to_1s: 4.14088e-09
+      gamma_1s_to_2p: 1.61576e-16
+    n_gamma:
+      0-1s: 7.45356e-114
+      0-2s: 5.57063e-122
+      1s-2p: 3.90198e-08
+      2p-2s: 0.236917
+    omitted_2p_2s_over_retained: 0.236
+  T_300K:
+    SI_s^-1:
+      gamma_1s_to_0: 4870140000000.0
+      gamma_0_to_1s: 4.48176e-17
+      gamma_2s_to_0: 548305000000.0
+      gamma_0_to_2s: 4.14131e-20
+      gamma_2p_to_1s: 1713800.0
+      gamma_1s_to_2p: 21497.6
+    hbar_gamma_meV:
+      gamma_1s_to_0: 3.20559
+      gamma_0_to_1s: 2.94995e-29
+      gamma_2s_to_0: 0.360901
+      gamma_0_to_2s: 2.72586e-32
+      gamma_2p_to_1s: 1.12805e-06
+      gamma_1s_to_2p: 1.415e-08
+    dimensionless_gamma_tau0:
+      gamma_1s_to_0: 0.0119167
+      gamma_0_to_1s: 1.09663e-31
+      gamma_2s_to_0: 0.00134164
+      gamma_0_to_2s: 1.01333e-34
+      gamma_2p_to_1s: 4.19348e-09
+      gamma_1s_to_2p: 5.26022e-11
+    n_gamma:
+      0-1s: 9.20252e-30
+      0-2s: 7.55293e-32
+      1s-2p: 0.0127032
+      2p-2s: 1.89271
+    omitted_2p_2s_over_retained: 1.86
+rates_note: Interband rates at K0 = 0 (Eqs. C24-C26); intra-excitonic rate at the baseline A (Eq. C22).
+  Offdiagonal Sigma_1s,2s neglected (Sect. V A), so no density rescaling of the rates.
+exchange:
+  zeta_E0aB2:
+    1s,1s:
+      cc_r: -32.2418
+      cc_a: 37.5973
+      eh: 0.215294
+      tot: 5.57075
+      tot_prior: 5.57075
+      tot_post: 5.57075
+    2s,2s:
+      cc_r: -30.9652
+      cc_a: 37.4591
+      eh: 0.188804
+      tot: 6.6827
+      tot_prior: 6.6827
+      tot_post: 6.6827
+    2p,2p:
+      cc_r: -27.395
+      cc_a: 32.0285
+      eh: 0.198947
+      tot: 4.83239
+      tot_prior: 4.83239
+      tot_post: 4.83239
+    3p,3p:
+      cc_r: -27.9579
+      cc_a: 35.7865
+      eh: 0.184004
+      tot: 8.01255
+      tot_prior: 8.01255
+      tot_post: 8.01255
+    1s,2s:
+      cc_r: -9.91858
+      cc_a: 13.6982
+      eh: -0.0221495
+      tot: 3.75743
+      tot_prior: 7.42298
+      tot_post: 0.0918778
+    2p,3p:
+      cc_r: -3.99392
+      cc_a: 6.63939
+      eh: -0.0129263
+      tot: 2.63254
+      tot_prior: 3.26442
+      tot_post: 2.00066
+    1s,2p:
+      cc_r: 0.0
+      cc_a: 0.0
+      eh: 0.0
+      tot: 0.0
+      tot_prior: 0.0
+      tot_post: 0.0
+  Sigma_at_1e11_meV:
+    1s: 2.12207
+    2s: 2.54565
+    2p: 1.84081
+  source: exchange_mean_field.py -> vertices_keldysh_200_8000_250_100.json
+  note: Sigma_a = n_X zeta_aa E0 aB^2 (Eq. 62); zeta = zeta^{cc,r} + zeta^{cc,a} + zeta^{eh} (Table IX,
+    Hermitian prescription). Only diagonal elements enter the solver; zeta(1s,2s) is recorded for the
+    accuracy statement of Sect. V A.
+calibration:
+  convention: hbar*Delta~ = Sigma(n_act) - Sigma(n_cal), Eqs. (65),(72). Lasers at the tabulated photon
+    energies give Delta~ = 0 at n_cal.
+  laser_photon_energy_bare_meV:
+    Xi_opt_0-1s: 1728.415
+    Xi_THz_1s-2p: 113.1937
+    V_opt_0-1s: 1728.415
+    V_opt_0-2s: 1852.575
+  mismatch_scan:
+  - n_X_nominal_cm2: 25000000000.0
+    laser_photon_energy_meV:
+      Xi_opt_0-1s: 1728.945
+      Xi_THz_1s-2p: 113.1234
+      V_opt_0-1s: 1728.945
+      V_opt_0-2s: 1853.211
+    rows:
+    - n_cal: 0.0
+      n_act: 25000000000.0
+      label: bare-tuned
+      Xi_Delta12: 0.530518
+      Xi_Delta23: -0.0703164
+      Xi_delta: 0.460201
+      V_Delta12: 0.530518
+      V_Delta13: 0.636412
+      V_delta: 0.105894
+    - n_cal: 25000000000.0
+      n_act: 22500000000.0
+      label: -10%
+      Xi_Delta12: -0.0530518
+      Xi_Delta23: 0.00703164
+      Xi_delta: -0.0460201
+      V_Delta12: -0.0530518
+      V_Delta13: -0.0636412
+      V_delta: -0.0105894
+    - n_cal: 25000000000.0
+      n_act: 23750000000.0
+      label: -5%
+      Xi_Delta12: -0.0265259
+      Xi_Delta23: 0.00351582
+      Xi_delta: -0.0230101
+      V_Delta12: -0.0265259
+      V_Delta13: -0.0318206
+      V_delta: -0.00529469
+    - n_cal: 25000000000.0
+      n_act: 25000000000.0
+      label: +0%
+      Xi_Delta12: 0.0
+      Xi_Delta23: 0.0
+      Xi_delta: 0.0
+      V_Delta12: 0.0
+      V_Delta13: 0.0
+      V_delta: 0.0
+    - n_cal: 25000000000.0
+      n_act: 26250000000.0
+      label: +5%
+      Xi_Delta12: 0.0265259
+      Xi_Delta23: -0.00351582
+      Xi_delta: 0.0230101
+      V_Delta12: 0.0265259
+      V_Delta13: 0.0318206
+      V_delta: 0.00529469
+    - n_cal: 25000000000.0
+      n_act: 27500000000.000004
+      label: +10%
+      Xi_Delta12: 0.0530518
+      Xi_Delta23: -0.00703164
+      Xi_delta: 0.0460201
+      V_Delta12: 0.0530518
+      V_Delta13: 0.0636412
+      V_delta: 0.0105894
+  - n_X_nominal_cm2: 50000000000.0
+    laser_photon_energy_meV:
+      Xi_opt_0-1s: 1729.476
+      Xi_THz_1s-2p: 113.0531
+      V_opt_0-1s: 1729.476
+      V_opt_0-2s: 1853.847
+    rows:
+    - n_cal: 0.0
+      n_act: 50000000000.0
+      label: bare-tuned
+      Xi_Delta12: 1.06104
+      Xi_Delta23: -0.140633
+      Xi_delta: 0.920403
+      V_Delta12: 1.06104
+      V_Delta13: 1.27282
+      V_delta: 0.211788
+    - n_cal: 50000000000.0
+      n_act: 45000000000.0
+      label: -10%
+      Xi_Delta12: -0.106104
+      Xi_Delta23: 0.0140633
+      Xi_delta: -0.0920403
+      V_Delta12: -0.106104
+      V_Delta13: -0.127282
+      V_delta: -0.0211788
+    - n_cal: 50000000000.0
+      n_act: 47500000000.0
+      label: -5%
+      Xi_Delta12: -0.0530518
+      Xi_Delta23: 0.00703164
+      Xi_delta: -0.0460201
+      V_Delta12: -0.0530518
+      V_Delta13: -0.0636412
+      V_delta: -0.0105894
+    - n_cal: 50000000000.0
+      n_act: 50000000000.0
+      label: +0%
+      Xi_Delta12: 0.0
+      Xi_Delta23: 0.0
+      Xi_delta: 0.0
+      V_Delta12: 0.0
+      V_Delta13: 0.0
+      V_delta: 0.0
+    - n_cal: 50000000000.0
+      n_act: 52500000000.0
+      label: +5%
+      Xi_Delta12: 0.0530518
+      Xi_Delta23: -0.00703164
+      Xi_delta: 0.0460201
+      V_Delta12: 0.0530518
+      V_Delta13: 0.0636412
+      V_delta: 0.0105894
+    - n_cal: 50000000000.0
+      n_act: 55000000000.00001
+      label: +10%
+      Xi_Delta12: 0.106104
+      Xi_Delta23: -0.0140633
+      Xi_delta: 0.0920403
+      V_Delta12: 0.106104
+      V_Delta13: 0.127282
+      V_delta: 0.0211788
+  - n_X_nominal_cm2: 100000000000.0
+    laser_photon_energy_meV:
+      Xi_opt_0-1s: 1730.537
+      Xi_THz_1s-2p: 112.9124
+      V_opt_0-1s: 1730.537
+      V_opt_0-2s: 1855.12
+    rows:
+    - n_cal: 0.0
+      n_act: 100000000000.0
+      label: bare-tuned
+      Xi_Delta12: 2.12207
+      Xi_Delta23: -0.281265
+      Xi_delta: 1.84081
+      V_Delta12: 2.12207
+      V_Delta13: 2.54565
+      V_delta: 0.423575
+    - n_cal: 100000000000.0
+      n_act: 90000000000.0
+      label: -10%
+      Xi_Delta12: -0.212207
+      Xi_Delta23: 0.0281265
+      Xi_delta: -0.184081
+      V_Delta12: -0.212207
+      V_Delta13: -0.254565
+      V_delta: -0.0423575
+    - n_cal: 100000000000.0
+      n_act: 95000000000.0
+      label: -5%
+      Xi_Delta12: -0.106104
+      Xi_Delta23: 0.0140633
+      Xi_delta: -0.0920403
+      V_Delta12: -0.106104
+      V_Delta13: -0.127282
+      V_delta: -0.0211788
+    - n_cal: 100000000000.0
+      n_act: 100000000000.0
+      label: +0%
+      Xi_Delta12: 0.0
+      Xi_Delta23: 0.0
+      Xi_delta: 0.0
+      V_Delta12: 0.0
+      V_Delta13: 0.0
+      V_delta: 0.0
+    - n_cal: 100000000000.0
+      n_act: 105000000000.0
+      label: +5%
+      Xi_Delta12: 0.106104
+      Xi_Delta23: -0.0140633
+      Xi_delta: 0.0920403
+      V_Delta12: 0.106104
+      V_Delta13: 0.127282
+      V_delta: 0.0211788
+    - n_cal: 100000000000.0
+      n_act: 110000000000.00002
+      label: +10%
+      Xi_Delta12: 0.212207
+      Xi_Delta23: -0.0281265
+      Xi_delta: 0.184081
+      V_Delta12: 0.212207
+      V_Delta13: 0.254565
+      V_delta: 0.0423575
+fields:
+  E_THz_kV_per_cm_per_meV: 9.84155
+  E_opt_1s_V_per_cm_per_meV: 22.6697
+  E_opt_2s_V_per_cm_per_meV: 69.9469
+  note: Intensities are vacuum-equivalent (I = c eps0 E^2 / 2); E_opt scales as A^-1/2, E_THz is independent
+    of A.
+  table:
+  - hbar_Omega_meV: 0.05
+    E_THz_kV_per_cm: 0.492078
+    I_THz_MW_per_cm2: 0.000321371
+    E_opt_1s_V_per_cm: 1.13348
+    I_opt_1s_W_per_cm2: 0.00170518
+    E_opt_2s_V_per_cm: 3.49735
+    I_opt_2s_W_per_cm2: 0.0162337
+  - hbar_Omega_meV: 0.08
+    E_THz_kV_per_cm: 0.787324
+    I_THz_MW_per_cm2: 0.000822709
+    E_opt_1s_V_per_cm: 1.81357
+    I_opt_1s_W_per_cm2: 0.00436525
+    E_opt_2s_V_per_cm: 5.59575
+    I_opt_2s_W_per_cm2: 0.0415582
+  - hbar_Omega_meV: 0.1
+    E_THz_kV_per_cm: 0.984155
+    I_THz_MW_per_cm2: 0.00128548
+    E_opt_1s_V_per_cm: 2.26697
+    I_opt_1s_W_per_cm2: 0.0068207
+    E_opt_2s_V_per_cm: 6.99469
+    I_opt_2s_W_per_cm2: 0.0649347
+  - hbar_Omega_meV: 0.5
+    E_THz_kV_per_cm: 4.92078
+    I_THz_MW_per_cm2: 0.0321371
+    E_opt_1s_V_per_cm: 11.3348
+    I_opt_1s_W_per_cm2: 0.170518
+    E_opt_2s_V_per_cm: 34.9735
+    I_opt_2s_W_per_cm2: 1.62337
+  - hbar_Omega_meV: 1.0
+    E_THz_kV_per_cm: 9.84155
+    I_THz_MW_per_cm2: 0.128548
+    E_opt_1s_V_per_cm: 22.6697
+    I_opt_1s_W_per_cm2: 0.68207
+    E_opt_2s_V_per_cm: 69.9469
+    I_opt_2s_W_per_cm2: 6.49347
+  - hbar_Omega_meV: 1.5
+    E_THz_kV_per_cm: 14.7623
+    I_THz_MW_per_cm2: 0.289234
+    E_opt_1s_V_per_cm: 34.0045
+    I_opt_1s_W_per_cm2: 1.53466
+    E_opt_2s_V_per_cm: 104.92
+    I_opt_2s_W_per_cm2: 14.6103
+  - hbar_Omega_meV: 3.0
+    E_THz_kV_per_cm: 29.5247
+    I_THz_MW_per_cm2: 1.15694
+    E_opt_1s_V_per_cm: 68.009
+    I_opt_1s_W_per_cm2: 6.13863
+    E_opt_2s_V_per_cm: 209.841
+    I_opt_2s_W_per_cm2: 58.4412
+  - hbar_Omega_meV: 4.0
+    E_THz_kV_per_cm: 39.3662
+    I_THz_MW_per_cm2: 2.05677
+    E_opt_1s_V_per_cm: 90.6786
+    I_opt_1s_W_per_cm2: 10.9131
+    E_opt_2s_V_per_cm: 279.788
+    I_opt_2s_W_per_cm2: 103.895
+  - hbar_Omega_meV: 5.0
+    E_THz_kV_per_cm: 49.2078
+    I_THz_MW_per_cm2: 3.21371
+    E_opt_1s_V_per_cm: 113.348
+    I_opt_1s_W_per_cm2: 17.0518
+    E_opt_2s_V_per_cm: 349.735
+    I_opt_2s_W_per_cm2: 162.337
+ionization:
+  kappa_ion: 0.304
+  hbar_Gamma_ion_meV_per_meV2: 0.00113011
+  note: hbar*Gamma_ion = kappa_ion (hbar*Omega23)^2/E0, Eq. (57); P_ion = int Gamma_ion(t) rho33(t) dt
+    evaluated a posteriori.
+selectivity_n3:
+  THz 1s->2p vs 1s->3p:
+    detuning_meV: 29.2983
+    amplitude_ratio: 0.312
+    sigma_min_ps: 0.0674
+    tanh_ramp_min_ps: 0.102
+  opt 0->1s vs 0->2s:
+    detuning_meV: 124.16
+    amplitude_ratio: 0.324
+    sigma_min_ps: 0.0159
+    tanh_ramp_min_ps: 0.0242
+  opt 0->2s vs 0->3s:
+    detuning_meV: 21.291
+    amplitude_ratio: 0.532
+    sigma_min_ps: 0.0927
+    tanh_ramp_min_ps: 0.141
+protocol:
+  source: protocol choices of the paper (Sect. VI, Table III); every grid written out explicitly
+  initial_state: rho(0) = |0><0|, t0 = 0, phases phi_ij = 0
+  inputs: renormalized detunings hbar*Delta~ and Rabi energies hbar*Omega (meV); case 3 (photon dissipator
+    + exchange mean field) uses bare laser detunings Delta = 0 plus diagonal Sigma_a
+  weak_optical_leg_rule: hbar*Omega12 = 0.05 min(hbar*Omega23, hbar*gamma_1s/2) for every Xi run (conversion,
+    CPT plateau, spectra)
+  validity_condition: one-exciton Fock space of Sect. III kept; every run reports max_t (1 - rho11), required
+    << 1
+  temperatures_K:
+    baseline: 4
+    comparison: 77
+    single_run: 300
+  Part_A:
+    temperature_K: 4
+    cases:
+      '1': 'coherent only: no dissipator, Sigma = 0'
+      '2': photon dissipator, Sigma = 0
+      '3': photon dissipator + diagonal exchange mean field (bare-tuned lasers)
+    Xi_conversion_A1_A3:
+      envelope: Gaussian
+      sigma_ps: 1.5
+      delay_over_sigma: 1.25
+      hbar_Omega23_meV: 5.0
+      hbar_Omega12_meV: 0.0801397
+      orderings:
+      - counterintuitive (t23 < t12)
+      - sequential (t12 < t23), control
+    case3:
+      n_X_cm2: 100000000000.0
+      source: calibration.mismatch_scan, bare-tuned row (derived)
+      Xi:
+        Delta12_meV: 2.12207
+        Delta23_meV: -0.281265
+        delta_meV: 1.84081
+      V:
+        Delta12_meV: 2.12207
+        Delta13_meV: 2.54565
+        delta_meV: 0.423575
+    A4_Xi_plateau_CPT:
+      envelope: plateau
+      hbar_Omega12_meV: 0.05
+      hbar_Omega23_meV: 1.0
+      tau_on_off_ps: 0.5
+      T_pulse_ps: 50.0
+    A5_V:
+      envelope: synchronous Gaussian pair, t12 = t13
+      sigma_ps: 0.12
+      hbar_Omega12_meV: 1.0
+      hbar_Omega13_meV: 1.0
+  Xi_conversion:
+    envelope: Gaussian
+    ordering: t23 < t12 (counterintuitive)
+    figure_of_merit: eta = rho33(t_f)/(rho33(t_f) + N_emit); vertex suppression max rho22 / rho33(t_f);
+      P_ion / rho33(t_f)
+    baseline:
+      sigma_ps: 1.5
+      delay_over_sigma: 1.25
+      hbar_Omega23_meV: 5.0
+      hbar_Omega12_meV: 0.0801397
+      delta_Xi_meV: 0.0
+      optical_pulse_area_rad: 0.458
+    grids:
+      delta_Xi_meV:
+      - -1.0
+      - -0.8
+      - -0.6
+      - -0.4
+      - -0.2
+      - 0.0
+      - 0.2
+      - 0.4
+      - 0.6
+      - 0.8
+      - 1.0
+      hbar_Omega23_meV:
+      - 1.0
+      - 1.5
+      - 2.0
+      - 2.5
+      - 3.0
+      - 3.5
+      - 4.0
+      - 4.5
+      - 5.0
+      hbar_Omega12_meV_derived:
+      - 0.05
+      - 0.075
+      - 0.0801397
+      - 0.0801397
+      - 0.0801397
+      - 0.0801397
+      - 0.0801397
+      - 0.0801397
+      - 0.0801397
+      delay_over_sigma:
+      - 1.0
+      - 1.25
+      - 1.5
+      sigma_ps:
+      - 1.1
+      - 1.5
+      - 1.9
+    scans:
+      robustness_map:
+        axes:
+        - delta_Xi_meV
+        - hbar_Omega23_meV
+        fixed:
+          sigma_ps: 1.5
+          delay_over_sigma: 1.25
+        n_runs: 99
+      adiabaticity_grid:
+        axes:
+        - hbar_Omega23_meV
+        - sigma_ps
+        - delay_over_sigma
+        fixed:
+          delta_Xi_meV: 0.0
+        n_runs: 81
+      ordering_control: sequential order run at every grid point
+  Xi_response:
+    envelope: plateau
+    tau_on_off_ps: 0.5
+    T_pulse_ps: 50.0
+    Delta23: 0.0
+    hbar_Omega23_meV:
+    - 0.25
+    - 0.5
+    - 0.75
+    - 1.0
+    - 1.25
+    - 1.5
+    - 1.6
+    - 2.0
+    - 3.0
+    - 4.0
+    - 5.0
+    eit_claims_only_for_hbar_Omega23_le_meV: 1.5
+    eit_at_crossover_meV: 1.6
+    weak_probe_rule: hbar*Omega12 = 0.05 min(hbar*Omega23, hbar*gamma_1s/2) (probe nonlinearity <= 0.32
+      %)
+    hbar_Omega12_meV_derived:
+    - 0.0125
+    - 0.025
+    - 0.0375
+    - 0.05
+    - 0.0625
+    - 0.075
+    - 0.08
+    - 0.0801397
+    - 0.0801397
+    - 0.0801397
+    - 0.0801397
+    linearity_check_factor: 0.5
+    probe_Delta12_grid:
+      spec: 0.01 meV within +-1 meV, 0.1 meV outside, +-15 meV
+      n_points: 481
+      values_meV:
+      - -15.0
+      - -14.9
+      - -14.8
+      - -14.7
+      - -14.6
+      - -14.5
+      - -14.4
+      - -14.3
+      - -14.2
+      - -14.1
+      - -14.0
+      - -13.9
+      - -13.8
+      - -13.7
+      - -13.6
+      - -13.5
+      - -13.4
+      - -13.3
+      - -13.2
+      - -13.1
+      - -13.0
+      - -12.9
+      - -12.8
+      - -12.7
+      - -12.6
+      - -12.5
+      - -12.4
+      - -12.3
+      - -12.2
+      - -12.1
+      - -12.0
+      - -11.9
+      - -11.8
+      - -11.7
+      - -11.6
+      - -11.5
+      - -11.4
+      - -11.3
+      - -11.2
+      - -11.1
+      - -11.0
+      - -10.9
+      - -10.8
+      - -10.7
+      - -10.6
+      - -10.5
+      - -10.4
+      - -10.3
+      - -10.2
+      - -10.1
+      - -10.0
+      - -9.9
+      - -9.8
+      - -9.7
+      - -9.6
+      - -9.5
+      - -9.4
+      - -9.3
+      - -9.2
+      - -9.1
+      - -9.0
+      - -8.9
+      - -8.8
+      - -8.7
+      - -8.6
+      - -8.5
+      - -8.4
+      - -8.3
+      - -8.2
+      - -8.1
+      - -8.0
+      - -7.9
+      - -7.8
+      - -7.7
+      - -7.6
+      - -7.5
+      - -7.4
+      - -7.3
+      - -7.2
+      - -7.1
+      - -7.0
+      - -6.9
+      - -6.8
+      - -6.7
+      - -6.6
+      - -6.5
+      - -6.4
+      - -6.3
+      - -6.2
+      - -6.1
+      - -6.0
+      - -5.9
+      - -5.8
+      - -5.7
+      - -5.6
+      - -5.5
+      - -5.4
+      - -5.3
+      - -5.2
+      - -5.1
+      - -5.0
+      - -4.9
+      - -4.8
+      - -4.7
+      - -4.6
+      - -4.5
+      - -4.4
+      - -4.3
+      - -4.2
+      - -4.1
+      - -4.0
+      - -3.9
+      - -3.8
+      - -3.7
+      - -3.6
+      - -3.5
+      - -3.4
+      - -3.3
+      - -3.2
+      - -3.1
+      - -3.0
+      - -2.9
+      - -2.8
+      - -2.7
+      - -2.6
+      - -2.5
+      - -2.4
+      - -2.3
+      - -2.2
+      - -2.1
+      - -2.0
+      - -1.9
+      - -1.8
+      - -1.7
+      - -1.6
+      - -1.5
+      - -1.4
+      - -1.3
+      - -1.2
+      - -1.1
+      - -1.0
+      - -0.99
+      - -0.98
+      - -0.97
+      - -0.96
+      - -0.95
+      - -0.94
+      - -0.93
+      - -0.92
+      - -0.91
+      - -0.9
+      - -0.89
+      - -0.88
+      - -0.87
+      - -0.86
+      - -0.85
+      - -0.84
+      - -0.83
+      - -0.82
+      - -0.81
+      - -0.8
+      - -0.79
+      - -0.78
+      - -0.77
+      - -0.76
+      - -0.75
+      - -0.74
+      - -0.73
+      - -0.72
+      - -0.71
+      - -0.7
+      - -0.69
+      - -0.68
+      - -0.67
+      - -0.66
+      - -0.65
+      - -0.64
+      - -0.63
+      - -0.62
+      - -0.61
+      - -0.6
+      - -0.59
+      - -0.58
+      - -0.57
+      - -0.56
+      - -0.55
+      - -0.54
+      - -0.53
+      - -0.52
+      - -0.51
+      - -0.5
+      - -0.49
+      - -0.48
+      - -0.47
+      - -0.46
+      - -0.45
+      - -0.44
+      - -0.43
+      - -0.42
+      - -0.41
+      - -0.4
+      - -0.39
+      - -0.38
+      - -0.37
+      - -0.36
+      - -0.35
+      - -0.34
+      - -0.33
+      - -0.32
+      - -0.31
+      - -0.3
+      - -0.29
+      - -0.28
+      - -0.27
+      - -0.26
+      - -0.25
+      - -0.24
+      - -0.23
+      - -0.22
+      - -0.21
+      - -0.2
+      - -0.19
+      - -0.18
+      - -0.17
+      - -0.16
+      - -0.15
+      - -0.14
+      - -0.13
+      - -0.12
+      - -0.11
+      - -0.1
+      - -0.09
+      - -0.08
+      - -0.07
+      - -0.06
+      - -0.05
+      - -0.04
+      - -0.03
+      - -0.02
+      - -0.01
+      - 0.0
+      - 0.01
+      - 0.02
+      - 0.03
+      - 0.04
+      - 0.05
+      - 0.06
+      - 0.07
+      - 0.08
+      - 0.09
+      - 0.1
+      - 0.11
+      - 0.12
+      - 0.13
+      - 0.14
+      - 0.15
+      - 0.16
+      - 0.17
+      - 0.18
+      - 0.19
+      - 0.2
+      - 0.21
+      - 0.22
+      - 0.23
+      - 0.24
+      - 0.25
+      - 0.26
+      - 0.27
+      - 0.28
+      - 0.29
+      - 0.3
+      - 0.31
+      - 0.32
+      - 0.33
+      - 0.34
+      - 0.35
+      - 0.36
+      - 0.37
+      - 0.38
+      - 0.39
+      - 0.4
+      - 0.41
+      - 0.42
+      - 0.43
+      - 0.44
+      - 0.45
+      - 0.46
+      - 0.47
+      - 0.48
+      - 0.49
+      - 0.5
+      - 0.51
+      - 0.52
+      - 0.53
+      - 0.54
+      - 0.55
+      - 0.56
+      - 0.57
+      - 0.58
+      - 0.59
+      - 0.6
+      - 0.61
+      - 0.62
+      - 0.63
+      - 0.64
+      - 0.65
+      - 0.66
+      - 0.67
+      - 0.68
+      - 0.69
+      - 0.7
+      - 0.71
+      - 0.72
+      - 0.73
+      - 0.74
+      - 0.75
+      - 0.76
+      - 0.77
+      - 0.78
+      - 0.79
+      - 0.8
+      - 0.81
+      - 0.82
+      - 0.83
+      - 0.84
+      - 0.85
+      - 0.86
+      - 0.87
+      - 0.88
+      - 0.89
+      - 0.9
+      - 0.91
+      - 0.92
+      - 0.93
+      - 0.94
+      - 0.95
+      - 0.96
+      - 0.97
+      - 0.98
+      - 0.99
+      - 1.0
+      - 1.1
+      - 1.2
+      - 1.3
+      - 1.4
+      - 1.5
+      - 1.6
+      - 1.7
+      - 1.8
+      - 1.9
+      - 2.0
+      - 2.1
+      - 2.2
+      - 2.3
+      - 2.4
+      - 2.5
+      - 2.6
+      - 2.7
+      - 2.8
+      - 2.9
+      - 3.0
+      - 3.1
+      - 3.2
+      - 3.3
+      - 3.4
+      - 3.5
+      - 3.6
+      - 3.7
+      - 3.8
+      - 3.9
+      - 4.0
+      - 4.1
+      - 4.2
+      - 4.3
+      - 4.4
+      - 4.5
+      - 4.6
+      - 4.7
+      - 4.8
+      - 4.9
+      - 5.0
+      - 5.1
+      - 5.2
+      - 5.3
+      - 5.4
+      - 5.5
+      - 5.6
+      - 5.7
+      - 5.8
+      - 5.9
+      - 6.0
+      - 6.1
+      - 6.2
+      - 6.3
+      - 6.4
+      - 6.5
+      - 6.6
+      - 6.7
+      - 6.8
+      - 6.9
+      - 7.0
+      - 7.1
+      - 7.2
+      - 7.3
+      - 7.4
+      - 7.5
+      - 7.6
+      - 7.7
+      - 7.8
+      - 7.9
+      - 8.0
+      - 8.1
+      - 8.2
+      - 8.3
+      - 8.4
+      - 8.5
+      - 8.6
+      - 8.7
+      - 8.8
+      - 8.9
+      - 9.0
+      - 9.1
+      - 9.2
+      - 9.3
+      - 9.4
+      - 9.5
+      - 9.6
+      - 9.7
+      - 9.8
+      - 9.9
+      - 10.0
+      - 10.1
+      - 10.2
+      - 10.3
+      - 10.4
+      - 10.5
+      - 10.6
+      - 10.7
+      - 10.8
+      - 10.9
+      - 11.0
+      - 11.1
+      - 11.2
+      - 11.3
+      - 11.4
+      - 11.5
+      - 11.6
+      - 11.7
+      - 11.8
+      - 11.9
+      - 12.0
+      - 12.1
+      - 12.2
+      - 12.3
+      - 12.4
+      - 12.5
+      - 12.6
+      - 12.7
+      - 12.8
+      - 12.9
+      - 13.0
+      - 13.1
+      - 13.2
+      - 13.3
+      - 13.4
+      - 13.5
+      - 13.6
+      - 13.7
+      - 13.8
+      - 13.9
+      - 14.0
+      - 14.1
+      - 14.2
+      - 14.3
+      - 14.4
+      - 14.5
+      - 14.6
+      - 14.7
+      - 14.8
+      - 14.9
+      - 15.0
+    chi_source: Liouvillian null-space steady state for all production spectra
+  V_response:
+    envelope: plateau
+    tau_on_off_ps: 0.2
+    T_pulse_ps_min: 20.0
+    Delta12: 0.0
+    scan: delta_V via the 2s tone
+    hbar_Omega12_meV: 0.1
+    hbar_Omega13_meV: 0.01
+    saturation_derived:
+      Gamma12_meV: 1.60279
+      Gamma13_meV: 0.18045
+      s12: 0.00195
+      s13: 0.00154
+      cross_Omega12sq_over_4G23G13: 0.00777
+    delta_V_grid:
+      spec: 0.01 meV within +-1 meV, 0.1 meV outside, +-5 meV
+      n_points: 281
+      values_meV:
+      - -5.0
+      - -4.9
+      - -4.8
+      - -4.7
+      - -4.6
+      - -4.5
+      - -4.4
+      - -4.3
+      - -4.2
+      - -4.1
+      - -4.0
+      - -3.9
+      - -3.8
+      - -3.7
+      - -3.6
+      - -3.5
+      - -3.4
+      - -3.3
+      - -3.2
+      - -3.1
+      - -3.0
+      - -2.9
+      - -2.8
+      - -2.7
+      - -2.6
+      - -2.5
+      - -2.4
+      - -2.3
+      - -2.2
+      - -2.1
+      - -2.0
+      - -1.9
+      - -1.8
+      - -1.7
+      - -1.6
+      - -1.5
+      - -1.4
+      - -1.3
+      - -1.2
+      - -1.1
+      - -1.0
+      - -0.99
+      - -0.98
+      - -0.97
+      - -0.96
+      - -0.95
+      - -0.94
+      - -0.93
+      - -0.92
+      - -0.91
+      - -0.9
+      - -0.89
+      - -0.88
+      - -0.87
+      - -0.86
+      - -0.85
+      - -0.84
+      - -0.83
+      - -0.82
+      - -0.81
+      - -0.8
+      - -0.79
+      - -0.78
+      - -0.77
+      - -0.76
+      - -0.75
+      - -0.74
+      - -0.73
+      - -0.72
+      - -0.71
+      - -0.7
+      - -0.69
+      - -0.68
+      - -0.67
+      - -0.66
+      - -0.65
+      - -0.64
+      - -0.63
+      - -0.62
+      - -0.61
+      - -0.6
+      - -0.59
+      - -0.58
+      - -0.57
+      - -0.56
+      - -0.55
+      - -0.54
+      - -0.53
+      - -0.52
+      - -0.51
+      - -0.5
+      - -0.49
+      - -0.48
+      - -0.47
+      - -0.46
+      - -0.45
+      - -0.44
+      - -0.43
+      - -0.42
+      - -0.41
+      - -0.4
+      - -0.39
+      - -0.38
+      - -0.37
+      - -0.36
+      - -0.35
+      - -0.34
+      - -0.33
+      - -0.32
+      - -0.31
+      - -0.3
+      - -0.29
+      - -0.28
+      - -0.27
+      - -0.26
+      - -0.25
+      - -0.24
+      - -0.23
+      - -0.22
+      - -0.21
+      - -0.2
+      - -0.19
+      - -0.18
+      - -0.17
+      - -0.16
+      - -0.15
+      - -0.14
+      - -0.13
+      - -0.12
+      - -0.11
+      - -0.1
+      - -0.09
+      - -0.08
+      - -0.07
+      - -0.06
+      - -0.05
+      - -0.04
+      - -0.03
+      - -0.02
+      - -0.01
+      - 0.0
+      - 0.01
+      - 0.02
+      - 0.03
+      - 0.04
+      - 0.05
+      - 0.06
+      - 0.07
+      - 0.08
+      - 0.09
+      - 0.1
+      - 0.11
+      - 0.12
+      - 0.13
+      - 0.14
+      - 0.15
+      - 0.16
+      - 0.17
+      - 0.18
+      - 0.19
+      - 0.2
+      - 0.21
+      - 0.22
+      - 0.23
+      - 0.24
+      - 0.25
+      - 0.26
+      - 0.27
+      - 0.28
+      - 0.29
+      - 0.3
+      - 0.31
+      - 0.32
+      - 0.33
+      - 0.34
+      - 0.35
+      - 0.36
+      - 0.37
+      - 0.38
+      - 0.39
+      - 0.4
+      - 0.41
+      - 0.42
+      - 0.43
+      - 0.44
+      - 0.45
+      - 0.46
+      - 0.47
+      - 0.48
+      - 0.49
+      - 0.5
+      - 0.51
+      - 0.52
+      - 0.53
+      - 0.54
+      - 0.55
+      - 0.56
+      - 0.57
+      - 0.58
+      - 0.59
+      - 0.6
+      - 0.61
+      - 0.62
+      - 0.63
+      - 0.64
+      - 0.65
+      - 0.66
+      - 0.67
+      - 0.68
+      - 0.69
+      - 0.7
+      - 0.71
+      - 0.72
+      - 0.73
+      - 0.74
+      - 0.75
+      - 0.76
+      - 0.77
+      - 0.78
+      - 0.79
+      - 0.8
+      - 0.81
+      - 0.82
+      - 0.83
+      - 0.84
+      - 0.85
+      - 0.86
+      - 0.87
+      - 0.88
+      - 0.89
+      - 0.9
+      - 0.91
+      - 0.92
+      - 0.93
+      - 0.94
+      - 0.95
+      - 0.96
+      - 0.97
+      - 0.98
+      - 0.99
+      - 1.0
+      - 1.1
+      - 1.2
+      - 1.3
+      - 1.4
+      - 1.5
+      - 1.6
+      - 1.7
+      - 1.8
+      - 1.9
+      - 2.0
+      - 2.1
+      - 2.2
+      - 2.3
+      - 2.4
+      - 2.5
+      - 2.6
+      - 2.7
+      - 2.8
+      - 2.9
+      - 3.0
+      - 3.1
+      - 3.2
+      - 3.3
+      - 3.4
+      - 3.5
+      - 3.6
+      - 3.7
+      - 3.8
+      - 3.9
+      - 4.0
+      - 4.1
+      - 4.2
+      - 4.3
+      - 4.4
+      - 4.5
+      - 4.6
+      - 4.7
+      - 4.8
+      - 4.9
+      - 5.0
+    chi_source: Liouvillian null-space steady state
+  V_beat:
+    envelope: synchronous Gaussian pair, t12 = t13
+    sigma_ps_baseline: 0.12
+    sigma_ps_grid:
+    - 0.093
+    - 0.12
+    - 0.15
+    - 0.18
+    hbar_Omega12_meV: 1.0
+    hbar_Omega13_meV: 1.0
+    pulse_area_rad_derived:
+    - 0.354
+    - 0.457
+    - 0.571
+    - 0.685
+    amplitude_check_hbar_Omega_meV: 0.5
+  nX_mismatch:
+    n_cal_cm2:
+    - 25000000000.0
+    - 50000000000.0
+    - 100000000000.0
+    deviations:
+    - -0.1
+    - -0.05
+    - 0.0
+    - 0.05
+    - 0.1
+    bare_tuned_reference: true
+    applied_to: Xi conversion
+    operating_point:
+      sigma_ps: 1.5
+      delay_over_sigma: 1.25
+      hbar_Omega23_meV: 5.0
+      hbar_Omega12_meV: 0.0801397
+  numerics:
+    gaussian_centres: '>= 6 sigma after t0'
+    plateau_t_on: '>= 6 tau_on'
+    t_end: 6 sigma after last pulse / plateau end
+    integrator: DOP853 (scipy solve_ivp), rtol 1e-8, atol 1e-10
+    rtol: 1.0e-08
+    atol: 1.0e-10
+    coherent_only_rtol: 1.0e-10
+    coherent_only_atol: 1.0e-12
+    weak_drive_note: with the weak optical leg the excited populations are ~1e-3; atol is lowered to 1e-14
+      for those runs
+    max_step: min(sigma, tau_on) / 20
+    breakpoints: pulse centres +- 6 sigma, t_on, t_off (piecewise integration)
+    accumulators:
+    - N_emit = int gamma_2->1 rho22 dt
+    - int rho22 dt
+    - P_ion = int Gamma_ion(t) rho33 dt
+    validation_thresholds:
+      trace: 1.0e-08
+      hermiticity: 1.0e-08
+      min_eigenvalue: -1.0e-09
+validation:
+- quantity: Eb(1s) [meV]
+  computed: 161.585
+  draft: 161.59
+  rel_dev: 3.1e-05
+  tolerance: 0.01
+  pass: true
+- quantity: Eb(2p) [meV]
+  computed: 48.3914
+  draft: 48.39
+  rel_dev: 2.8e-05
+  tolerance: 0.01
+  pass: true
+- quantity: Eb(2s) [meV]
+  computed: 37.4253
+  draft: 37.43
+  rel_dev: 0.00012
+  tolerance: 0.01
+  pass: true
+- quantity: Eb(3p) [meV]
+  computed: 19.093
+  draft: 19.09
+  rel_dev: 0.00016
+  tolerance: 0.01
+  pass: true
+- quantity: Eb(3s) [meV]
+  computed: 16.1343
+  draft: 16.13
+  rel_dev: 0.00027
+  tolerance: 0.01
+  pass: true
+- quantity: '|phi_1s(0)|^2'
+  computed: 0.28415
+  draft: 0.2842
+  rel_dev: 0.00018
+  tolerance: 0.001
+  pass: true
+- quantity: '|phi_2s(0)|^2'
+  computed: 0.0298469
+  draft: 0.02985
+  rel_dev: 0.0001
+  tolerance: 0.001
+  pass: true
+- quantity: '|phi_3s(0)|^2'
+  computed: 0.00845204
+  draft: 0.00845
+  rel_dev: 0.00024
+  tolerance: 0.005
+  pass: true
+- quantity: '|d_1s,2p| [a_B]'
+  computed: 0.853866
+  draft: 0.854
+  rel_dev: 0.00016
+  tolerance: 0.001
+  pass: true
+- quantity: '|d_1s,3p| [a_B]'
+  computed: 0.266295
+  draft: 0.266
+  rel_dev: 0.0011
+  tolerance: 0.002
+  pass: true
+- quantity: '|d_2s,2p| [a_B]'
+  computed: 2.73999
+  draft: 2.74
+  rel_dev: 4.6e-06
+  tolerance: 0.001
+  pass: true
+- quantity: gamma_1s->0 [s^-1]
+  computed: 4870140000000.0
+  draft: 4870000000000.0
+  rel_dev: 2.9e-05
+  tolerance: 0.005
+  pass: true
+- quantity: gamma_2s->0 [s^-1]
+  computed: 548305000000.0
+  draft: 548000000000.0
+  rel_dev: 0.00056
+  tolerance: 0.005
+  pass: true
+- quantity: zeta(1s,1s)
+  computed: 5.57075
+  draft: 5.57
+  rel_dev: 0.00013
+  tolerance: 0.001
+  pass: true
+- quantity: zeta(2s,2s)
+  computed: 6.6827
+  draft: 6.68
+  rel_dev: 0.0004
+  tolerance: 0.001
+  pass: true
+- quantity: zeta(2p,2p)
+  computed: 4.83239
+  draft: 4.83
+  rel_dev: 0.00049
+  tolerance: 0.001
+  pass: true
+- quantity: zeta(1s,2s)
+  computed: 3.75743
+  draft: 3.76
+  rel_dev: 0.00068
+  tolerance: 0.002
+  pass: true
+- quantity: zeta^{cc,r}(1s,1s)
+  computed: -32.2418
+  draft: -32.24
+  rel_dev: 5.6e-05
+  tolerance: 0.001
+  pass: true
+- quantity: zeta^{cc,a}(1s,1s)
+  computed: 37.5973
+  draft: 37.6
+  rel_dev: 7.3e-05
+  tolerance: 0.001
+  pass: true
+- quantity: Sigma_1s/n_X [ueV um^2]
+  computed: 2.12207
+  draft: 2.12
+  rel_dev: 0.00098
+  tolerance: 0.005
+  pass: true
+- quantity: n_gamma(113.19 meV, 300 K)
+  computed: 0.0127032
+  draft: 0.0127
+  rel_dev: 0.00025
+  tolerance: 0.01
+  pass: true
+- quantity: omitted/retained ratio 300 K
+  computed: 1.86443
+  draft: 1.86
+  rel_dev: 0.0024
+  tolerance: 0.01
+  pass: true
+- quantity: zeta(1s,2p) selection rule (must vanish)
+  computed: 0.0
+  draft: 0.0
+  rel_dev: null
+  tolerance: 1.0e-08
+  pass: true
