@@ -41,10 +41,14 @@ Tasks (each writes into the output folder, default ./appG_output):
   relax             population decay of 2p: block A (measured width, f = 0 ... 1, both destinations and
                     orders), block B (f = 1, sink, width scale 1e-3 ... 1, three sigma: half points in
                     gamma_rel sigma), block C (zero width)                       -> relax_2p.csv
+  transfer          population decay of 2p (gamma_phi = 0), 1206 runs: eta_2p and eta_dark k sigma after the
+                    second pulse (k = 1, 2, 3, 6), both orders, both destinations; half points (ln2/k:
+                    the waiting time after the transfer) and the gamma_rel sigma at which the pulse-order
+                    contrast of eta_dark falls to 10, 2 and 1 (the transfer itself)  -> relax_transfer.csv
   independent       re-integration of five dephasing points with an own density-matrix right-hand side
                     (no lindblad_solver engine), compared with task sweep
   figure            Fig. S1 / Fig. 9 from the outputs of sigma, halfpoint and relax -> fig_dephasing.pdf/png
-  all               every task above, in this order (about 5-10 min on a desktop PC)
+  all               every task above, in this order (about 8-13 min on a desktop PC)
 
 Usage:  python appG_dephasing_relaxation.py [task ...] [--out DIR]     (reads params.yaml; default: all)
 Units: energies and hbar*Omega, hbar*gamma in meV, times in ps; gamma_phi sigma and gamma_rel sigma are
@@ -532,6 +536,125 @@ def task_relax(P, out):
 
 
 # =============================================================================
+# task transfer: population decay of 2p, the transfer separated from the waiting time
+# =============================================================================
+GS_TRANSFER = [0.0] + list(np.logspace(-3, np.log10(30.0), 33))   # gamma_rel sigma (dimensionless)
+KS_TRANSFER = [1, 2, 3, 6]
+
+
+def transfer_metrics(r, g_rel, dest):
+    """eta_2p and eta_dark at t2 + k sigma (t2: centre of the second pulse), plus relax_metrics at t_f."""
+    rho, t = r["rho"], r["t"]
+    p33 = rho[:, 2, 2].real
+    tr = np.einsum("tii->t", rho).real
+    ps = (1 - tr) if dest == "sink" else np.zeros_like(tr)
+    N = r["N_emit"]
+    t2 = max(r["t12"], r["t23"])         # the optical pulse in the counterintuitive order
+    out = {}
+    for k in KS_TRANSFER:
+        i = int(np.argmin(np.abs(t - (t2 + k * r["sigma"]))))
+        tot = p33[i] + ps[i] + N[i]
+        out[f"t_k{k}_ps"] = float(t[i])
+        out[f"eta2p_k{k}"] = float(p33[i] / tot) if tot > 0 else float("nan")
+        out[f"etadark_k{k}"] = float((p33[i] + ps[i]) / tot) if tot > 0 else float("nan")
+    out["t_f_ps"] = float(t[-1])
+    m = relax_metrics(r, g_rel, dest)
+    for key in ("eta", "eta_2p", "eta_dark", "P_sink", "N_emit", "rho33_f", "vertex_suppression",
+                "trace_f", "bookkeeping_rel", "min_eig", "max_one_exciton", "nfev"):
+        out[key] = m[key]
+    return out
+
+
+def task_transfer(P, out):
+    """Pure population decay of 2p (gamma_phi = 0), sigma = 1.1, 1.5, 1.9 ps, hbar Omega23 = 1, 2.5, 5 meV,
+    gamma_rel sigma = 0 and 33 values from 1e-3 to 30, both pulse orders, both destinations (1206 runs).
+    eta_2p and eta_dark are recorded k sigma after the second pulse, k = 1, 2, 3, 6 (k = 6 is t_f): the half
+    point of eta_2p in gamma_rel sigma approaches the free-decay value ln2/k (the waiting time after the
+    transfer), while the pulse-order contrast of eta_dark (counterintuitive over sequential) follows the
+    transfer itself (crossings of 10, 2 and 1).                                -> relax_transfer.csv"""
+    rows = []
+    for sigma in SIGMAS:
+        for W in W23S:
+            for gs in GS_TRANSFER:
+                g_rel = gs * ls.HB / sigma
+                for order in ("counterintuitive", "sequential"):
+                    for dest in ("sink", "1s"):
+                        if gs == 0 and dest == "1s":
+                            continue              # no decay: same run as dest = sink
+                        r = conversion(P, W, sigma, g_rel=g_rel, dest=dest, order=order)
+                        rows.append({"sigma_ps": sigma, "hbar_Omega23_meV": W, "hbar_Omega12_meV": P.weak(W),
+                                     "gamma_rel_sigma": gs, "hbar_gamma_rel_meV": g_rel, "order": order,
+                                     "dest": dest, **transfer_metrics(r, g_rel, dest)})
+
+    def pick(sigma, W, gs, order, dest):
+        dest = "sink" if gs == 0 else dest
+        return [q for q in rows if q["sigma_ps"] == sigma and q["hbar_Omega23_meV"] == W
+                and q["gamma_rel_sigma"] == gs and q["order"] == order and q["dest"] == dest][0]
+
+    checks = {}
+    dev = []
+    for sigma in SIGMAS:
+        for W in W23S:
+            for order in ("counterintuitive", "sequential"):
+                e = ls.summary(ls.xi_conversion(P, P.weak(W), W, sigma, XD, order=order))["eta"]
+                dev.append(abs(pick(sigma, W, 0.0, order, "sink")["eta"] / e - 1))
+    checks["zero_width_equals_xi_conversion"] = {"max_rel_dev": max(dev), "pass": bool(max(dev) <= 1e-12)}
+    k6 = [abs(q["eta2p_k6"] / q["eta_2p"] - 1) for q in rows if q["eta_2p"] > 1e-12]
+    checks["k6_equals_t_f"] = {"max_rel_dev": max(k6), "pass": bool(max(k6) <= 1e-9)}
+    bk = [q["bookkeeping_rel"] for q in rows if q["dest"] == "sink" and q["hbar_gamma_rel_meV"] > 0]
+    tr1 = [abs(q["trace_f"] - 1) for q in rows if q["dest"] == "1s"]
+    lmin = min(q["min_eig"] for q in rows)
+    checks["health"] = {"max_bookkeeping_rel": float(max(bk)), "max_trace_err_1s": float(max(tr1)),
+                        "min_min_eig": float(lmin),
+                        "pass": bool(max(bk) <= 1e-3 and max(tr1) <= 1e-8 and lmin >= -1e-9)}
+    conv = []
+    for W in W23S:
+        g_rel = 1.0 * ls.HB / 1.1
+        a = relax_metrics(conversion(P, W, 1.1, g_rel=g_rel, dest="sink"), g_rel, "sink")
+        b = relax_metrics(conversion(P, W, 1.1, g_rel=g_rel, dest="sink", rtol=RTOL0 / 10, atol=ATOL0 / 10),
+                          g_rel, "sink")
+        conv += [abs(b[k] / a[k] - 1) for k in ("eta_dark", "eta_2p", "N_emit")]
+    checks["convergence"] = {"max_rel_change": max(conv), "pass": bool(max(conv) <= 1e-5)}
+
+    def cross(xs, ys, level):
+        """first gamma_rel sigma where ys falls to `level` (log-linear in x, linear in y)"""
+        for (x0, y0), (x1, y1) in zip(zip(xs[:-1], ys[:-1]), zip(xs[1:], ys[1:])):
+            if y0 >= level > y1:
+                f = (level - y0) / (y1 - y0)
+                return float(10 ** (math.log10(x0) + f * (math.log10(x1) - math.log10(x0))))
+        return None
+
+    xs = [g for g in GS_TRANSFER if g > 0]
+    half, contrast = [], []
+    for sigma in SIGMAS:
+        for W in W23S:
+            for dest in ("sink", "1s"):
+                for k in KS_TRANSFER:
+                    for qty in ("eta2p", "etadark"):
+                        if dest == "1s" and qty == "etadark":
+                            continue
+                        y0 = pick(sigma, W, 0.0, "counterintuitive", dest)[f"{qty}_k{k}"]
+                        ys = [pick(sigma, W, g, "counterintuitive", dest)[f"{qty}_k{k}"] / y0 for g in xs]
+                        h = cross(xs, ys, 0.5)
+                        half.append({"sigma_ps": sigma, "hbar_Omega23_meV": W, "dest": dest, "quantity": qty,
+                                     "k": k, "half_gamma_rel_sigma": h,
+                                     "half_hbar_gamma_rel_meV": h * ls.HB / sigma if h else None})
+                for k in (3, 6):
+                    qty = "etadark" if dest == "sink" else "eta2p"
+                    cs = [pick(sigma, W, g, "counterintuitive", dest)[f"{qty}_k{k}"] /
+                          pick(sigma, W, g, "sequential", dest)[f"{qty}_k{k}"] for g in GS_TRANSFER]
+                    rec = {"sigma_ps": sigma, "hbar_Omega23_meV": W, "dest": dest, "quantity": qty, "k": k,
+                           "contrast_zero_width": cs[0]}
+                    for lev in (10.0, 2.0, 1.0):
+                        c = cross(xs, cs[1:], lev) if cs[0] > lev else None
+                        rec[f"gamma_rel_sigma_contrast_{lev:g}"] = c
+                        rec[f"hbar_gamma_rel_meV_contrast_{lev:g}"] = c * ls.HB / sigma if c else None
+                    contrast.append(rec)
+    write_csv(out / "relax_transfer.csv", rows)
+    return {"checks": checks, "half_points": half, "contrast": contrast, "n_runs": len(rows)}
+
+
+# =============================================================================
 # task independent: own density-matrix right-hand side, no lindblad_solver engine
 # =============================================================================
 def task_independent(P, out):
@@ -661,7 +784,8 @@ def task_figure(P, out):
 
 
 TASKS = {"sweep": task_sweep, "sigma": task_sigma, "coherence_time": task_coherence_time,
-         "halfpoint": task_halfpoint, "relax": task_relax, "independent": task_independent,
+         "halfpoint": task_halfpoint, "relax": task_relax, "transfer": task_transfer,
+         "independent": task_independent,
          "figure": task_figure}
 
 

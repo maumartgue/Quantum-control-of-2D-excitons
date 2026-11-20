@@ -63,7 +63,7 @@ To regenerate everything from scratch, run the scripts in this order. The run ti
 | 14 | `python appD6_exchange_checks.py` | ~20 s |
 | 15 | `python exciton_spectrum.py` | ~10 s |
 | 16 | `python rayleigh_ritz_2d.py` | ~5 s |
-| 17 | `python appG_dephasing_relaxation.py` | ~4 min |
+| 17 | `python appG_dephasing_relaxation.py` | ~6 min |
 
 Where the order matters:
 - Step 1 writes the vertex file that step 3 and `sect6_numbers.py` read.
@@ -119,9 +119,9 @@ The fixed-K₀ model produces neither pure dephasing nor population decay of 2p 
 
 | File | Content | Paper |
 |---|---|---|
-| `appG_dephasing_relaxation.py` | Pure dephasing of 2p, L_φ = √(2γ_φ)\|2p⟩⟨2p\| (Eq. G1), and population decay of 2p at γ_rel, into non-radiating states or back to 1s (Eq. G2), with the width split ħγ_rel/2 + ħγ_φ = 3.955 meV of the measured 2p line. Tasks: `sweep` (γ_φ from 0 to 4 meV, both pulse orders; window centre against the closed formula), `sigma` (σ = 1.1–1.9 ps; η halves at γ_φσ ≈ 1), `coherence_time` (evaluation time t_c = t₁₂ + 3σ of the coherence fraction), `halfpoint` (half of the 0–2p coherence lost at γ_φσ ≈ 0.12), `relax` (population decay: no 2p population survives when a quarter or more of the width is population decay; dark-sector fraction; half point γ_relσ ≈ 0.11), `independent` (re-integration with an own density-matrix right-hand side), `figure`. Every task runs its own checks (trace, positivity, convergence, γ = 0 equal to `xi_conversion`). | Sect. VI G, App. G, Table SVII (NJP) / XI (arXiv v2), Fig. S1 (NJP) / Fig. 9 (arXiv v2) |
+| `appG_dephasing_relaxation.py` | Pure dephasing of 2p, L_φ = √(2γ_φ)\|2p⟩⟨2p\| (Eq. G1), and population decay of 2p at γ_rel, into non-radiating states or back to 1s (Eq. G2), with the width split ħγ_rel/2 + ħγ_φ = 3.955 meV of the measured 2p line. Tasks: `sweep` (γ_φ from 0 to 4 meV, both pulse orders; window centre against the closed formula), `sigma` (σ = 1.1–1.9 ps; η halves at γ_φσ ≈ 1), `coherence_time` (evaluation time t_c = t₁₂ + 3σ of the coherence fraction), `halfpoint` (half of the 0–2p coherence lost at γ_φσ ≈ 0.12), `relax` (population decay: no 2p population survives when a quarter or more of the width is population decay; dark-sector fraction; the 2p fraction at t_f halves at γ_relσ ≈ 0.11), `transfer` (population decay with both pulse orders, fractions evaluated kσ after the second pulse, k = 1, 2, 3, 6: the half point of the 2p fraction approaches the free-decay value ln2/k, a waiting time after the transfer, while the pulse-order contrast of the dark-sector fraction falls to 2 at γ_relσ ≈ 1, the transfer itself), `independent` (re-integration with an own density-matrix right-hand side), `figure`. Every task runs its own checks (trace, positivity, convergence, γ = 0 equal to `xi_conversion`). | Sect. VI G, App. G, Table SVII (NJP) / XI (arXiv v2), Fig. S1 (NJP) / Fig. 9 (arXiv v2) |
 
-It writes `gamma_phi_sweep.csv`, `gamma_phi_sigma.csv`, `coherence_time.csv`, `coherence_halfpoint.csv`, `relax_2p.csv`, `appG_summary.json` (checks, half points, the numbers of Table SVII / XI) and `fig_dephasing.pdf/png`. One task can be run alone, for example `python appG_dephasing_relaxation.py relax`.
+It writes `gamma_phi_sweep.csv`, `gamma_phi_sigma.csv`, `coherence_time.csv`, `coherence_halfpoint.csv`, `relax_2p.csv`, `relax_transfer.csv`, `appG_summary.json` (checks, half points, contrast crossings, the numbers of Table SVII / XI) and `fig_dephasing.pdf/png`. One task can be run alone, for example `python appG_dephasing_relaxation.py relax`.
 
 Several scripts take an optional argument that selects one part, for example `python analytic_estimates.py ionization` or `python appE_validation.py lindblad`. The usage line at the top of each script lists them.
 
